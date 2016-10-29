@@ -12,6 +12,30 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let url = NSURL(string: "https://api.myjson.com/bins/4sgto")!
+        
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url) { (data, respone, error) in
+            
+            
+            if let urlContent = data {
+             
+                do {
+                    
+                    let jsonResult = try NSJSONSerialization.JSONObjectWithData(urlContent, options: NSJSONReadingOptions.MutableContainers)
+                    
+                    print(jsonResult["users"])
+                    
+                } catch {
+                    print("Json serialisation failed")
+                }
+            
+            //print (urlContent)
+            }
+        }
+        task.resume()
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
